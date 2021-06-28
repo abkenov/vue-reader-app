@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <textarea 
+    type="text" 
+    class="sentence"
+    v-model="words"
+  />
+  <button @click="splitWords">split</button>
+  <p>{{ words }}</p>
+  <p>{{ splittedWords }}</p>
+  <button v-if="splittedWords.length" @click="displayWords">start</button>
+  <p>{{ currentWord }}</p>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      words: '',
+      splittedWords: [],
+      currentWord: ''
+    }
   },
+  methods: {
+    splitWords() {
+      this.splittedWords = this.words.trim().split(' ')
+    },
+    
+    displayWords() {
+      this.currentWord = this.splittedWords[0]
+      this.splittedWords.splice(0, 1)
+    }
+  }
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
